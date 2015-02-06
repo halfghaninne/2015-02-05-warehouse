@@ -1,0 +1,451 @@
+Last login: Wed Feb  4 20:16:26 on ttys000
+➜  ~  ./Code/
+➜  Code  ls
+2015-01-26-checksplitter              2015-02-03-mini-programs
+2015-01-26-greeting                   2015-02-04-sql-practice
+2015-01-29-actual-rock-paper-scissors journal
+2015-01-29-rock-paper-scissors        temp
+➜  Code  ./2015-02-04-sql-practice 
+➜  2015-02-04-sql-practice git:(master) ✗ touch main.rb
+➜  2015-02-04-sql-practice git:(master) ✗ touch student.rb
+➜  2015-02-04-sql-practice git:(master) ✗ touch projects-completed.rb
+➜  2015-02-04-sql-practice git:(master) ✗ mate main.rb student.rb projects-completed.rb
+➜  2015-02-04-sql-practice git:(master) ✗ ls
+main.rb               student.rb
+projects-completed.rb test_database.db
+➜  2015-02-04-sql-practice git:(master) ✗ touch db-setup.rb
+➜  2015-02-04-sql-practice git:(master) ✗ mate db-setup.rb 
+➜  2015-02-04-sql-practice git:(master) ✗ touch cadejo.db
+➜  2015-02-04-sql-practice git:(master) ✗ ls 
+cadejo.db             main.rb               student.rb
+db-setup.rb           projects-completed.rb test_database.db
+➜  2015-02-04-sql-practice git:(master) ✗ touch questions.rb
+➜  2015-02-04-sql-practice git:(master) ✗ mate questions.rb 
+➜  2015-02-04-sql-practice git:(master) ✗ touch cadejo-test.rb
+➜  2015-02-04-sql-practice git:(master) ✗ mate cadejo-test.rb 
+➜  2015-02-04-sql-practice git:(master) ✗ ruby cadejo-test.rb 
+/Users/alexandrajmh/.rbenv/versions/2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require': cannot load such file -- sqlite3 (LoadError)
+	from /Users/alexandrajmh/.rbenv/versions/2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+	from cadejo-test.rb:2:in `<main>'
+➜  2015-02-04-sql-practice git:(master) ✗ sqlite3
+-- Loading resources from /Users/alexandrajmh/.sqliterc
+
+SQLite version 3.8.5 2014-08-15 22:37:57
+Enter ".help" for usage hints.
+Connected to a transient in-memory database.
+Use ".open FILENAME" to reopen on a persistent database.
+sqlite> .quit
+➜  2015-02-04-sql-practice git:(master) ✗ git status
+On branch master
+
+Initial commit
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	cadejo-test.rb
+	cadejo.db
+	db-setup.rb
+	main.rb
+	projects-completed.rb
+	questions.rb
+	student.rb
+	test_database.db
+
+nothing added to commit but untracked files present (use "git add" to track)
+➜  2015-02-04-sql-practice git:(master) ✗ ruby cadejo-test.rb 
+/Users/alexandrajmh/.rbenv/versions/2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require': cannot load such file -- sqlite3 (LoadError)
+	from /Users/alexandrajmh/.rbenv/versions/2.2.0/lib/ruby/2.2.0/rubygems/core_ext/kernel_require.rb:54:in `require'
+	from cadejo-test.rb:2:in `<main>'
+➜  2015-02-04-sql-practice git:(master) ✗ gem install sqlite3
+Fetching: sqlite3-1.3.10.gem (100%)
+Building native extensions.  This could take a while...
+Successfully installed sqlite3-1.3.10
+1 gem installed
+➜  2015-02-04-sql-practice git:(master) ✗ ruby cadejo-test.rb 
+cadejo-test.rb:8:in `require_relative': cannot load such file -- /Users/alexandrajmh/Code/2015-02-04-sql-practice/question (LoadError)
+	from cadejo-test.rb:8:in `<main>'
+➜  2015-02-04-sql-practice git:(master) ✗ ruby cadejo-test.rb
+Run options: --seed 31632
+
+# Running:
+
+.
+
+Finished in 0.002379s, 420.3447 runs/s, 420.3447 assertions/s.
+
+1 runs, 1 assertions, 0 failures, 0 errors, 0 skips
+➜  2015-02-04-sql-practice git:(master) ✗ pwd
+/Users/alexandrajmh/Code/2015-02-04-sql-practice
+➜  2015-02-04-sql-practice git:(master) ✗ git status
+On branch master
+
+Initial commit
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	cadejo-test.rb
+	cadejo.db
+	cadejo_test.db
+	db-setup.rb
+	main.rb
+	projects-completed.rb
+	questions.rb
+	student.rb
+	test_database.db
+
+nothing added to commit but untracked files present (use "git add" to track)
+➜  2015-02-04-sql-practice git:(master) ✗ git add cadejo-test.rb cadejo.db cadejo_test.db db-setup.rb main.rb projects-completed.rb questions.rb student.rb test_database.db 
+➜  2015-02-04-sql-practice git:(master) ✗ git commit
+[master (root-commit) bfe175a] Tried to mimic Sumeet's example.
+ 9 files changed, 87 insertions(+)
+ create mode 100644 cadejo-test.rb
+ create mode 100644 cadejo.db
+ create mode 100644 cadejo_test.db
+ create mode 100644 db-setup.rb
+ create mode 100644 main.rb
+ create mode 100644 projects-completed.rb
+ create mode 100644 questions.rb
+ create mode 100644 student.rb
+ create mode 100644 test_database.db
+➜  2015-02-04-sql-practice git:(master) ..
+➜  Code  mkdir 2015-02-05-warehouse
+➜  Code  touch location.rb
+➜  Code  touch category.rb
+➜  Code  touch product.rb
+➜  Code  touch driver.rb
+➜  Code  touch warehouse_mgr.db
+➜  Code  touch warehouse_mgr_setup.rb
+➜  Code  ./2015-02-05-warehouse 
+➜  2015-02-05-warehouse  ls
+category.rb            location.rb            warehouse_mgr.db
+driver.rb              product.rb             warehouse_mgr_setup.rb
+➜  2015-02-05-warehouse  mate warehouse_mgr_setup.rb 
+➜  2015-02-05-warehouse  mate driver.rb
+➜  2015-02-05-warehouse  ruby driver.rb 
+/Users/alexandrajmh/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/sqlite3-1.3.10/lib/sqlite3/database.rb:91:in `initialize': near "FOREIGN": syntax error (SQLite3::SQLException)
+	from /Users/alexandrajmh/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/sqlite3-1.3.10/lib/sqlite3/database.rb:91:in `new'
+	from /Users/alexandrajmh/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/sqlite3-1.3.10/lib/sqlite3/database.rb:91:in `prepare'
+	from /Users/alexandrajmh/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/sqlite3-1.3.10/lib/sqlite3/database.rb:134:in `execute'
+	from /Users/alexandrajmh/Code/2015-02-05-warehouse/warehouse_mgr_setup.rb:9:in `<top (required)>'
+	from driver.rb:6:in `require_relative'
+	from driver.rb:6:in `<main>'
+➜  2015-02-05-warehouse  ruby driver.rb
+/Users/alexandrajmh/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/sqlite3-1.3.10/lib/sqlite3/database.rb:91:in `initialize': near "FOREIGN": syntax error (SQLite3::SQLException)
+	from /Users/alexandrajmh/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/sqlite3-1.3.10/lib/sqlite3/database.rb:91:in `new'
+	from /Users/alexandrajmh/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/sqlite3-1.3.10/lib/sqlite3/database.rb:91:in `prepare'
+	from /Users/alexandrajmh/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/sqlite3-1.3.10/lib/sqlite3/database.rb:134:in `execute'
+	from /Users/alexandrajmh/Code/2015-02-05-warehouse/warehouse_mgr_setup.rb:9:in `<top (required)>'
+	from driver.rb:6:in `require_relative'
+	from driver.rb:6:in `<main>'
+➜  2015-02-05-warehouse  ruby driver.rb
+
+From: /Users/alexandrajmh/Code/2015-02-05-warehouse/driver.rb @ line 11 :
+
+     6: require_relative 'warehouse_mgr_setup'
+     7: # require_relative 'location'
+     8: # require_relative 'category.rb'
+     9: # require_relative 'product.rb'
+    10: 
+ => 11: binding.pry
+
+[1] pry(main)> exit
+➜  2015-02-05-warehouse  sqlite3 warehouse_mgr
+-- Loading resources from /Users/alexandrajmh/.sqliterc
+
+SQLite version 3.8.5 2014-08-15 22:37:57
+Enter ".help" for usage hints.
+sqlite> SELECT * FROM locations
+   ...> ;
+Error: no such table: locations
+sqlite> .quit
+➜  2015-02-05-warehouse  ruby driver.rb
+
+From: /Users/alexandrajmh/Code/2015-02-05-warehouse/driver.rb @ line 11 :
+
+     6: require_relative 'warehouse_mgr_setup'
+     7: # require_relative 'location'
+     8: # require_relative 'category.rb'
+     9: # require_relative 'product.rb'
+    10: 
+ => 11: binding.pry
+
+[1] pry(main)> exit
+➜  2015-02-05-warehouse  ruby driver.rb
+➜  2015-02-05-warehouse  sqlite warehouse_mgr
+zsh: command not found: sqlite
+➜  2015-02-05-warehouse  sqlite3 warehouse_mgr
+-- Loading resources from /Users/alexandrajmh/.sqliterc
+
+SQLite version 3.8.5 2014-08-15 22:37:57
+Enter ".help" for usage hints.
+sqlite> SELECT * FROM location;
+Error: no such table: location
+sqlite> CREATE TABLE IF NOT EXISTS locations (id INTEGER PRIMARY 
+   ...>  KEY, city TEXT);
+sqlite> SELECT * FROM locations;
+sqlite> SELECT * from categories;
+Error: no such table: categories
+sqlite> CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY,
+   ...>           serial_number INTEGER, quantity INTEGER, description TEXT, cost
+   ...>           INTEGER, location_id INTEGER, category_id INTEGER);
+sqlite> CREATE TABLE IF NOT EXISTS categories (id INTEGER PRIMARY
+   ...>           KEY, name TEXT);
+sqlite> INSERT INTO locations (city) VALUES ("Omaha")
+   ...> ;
+sqlite> SELECT * FROM locations;
+id          city      
+----------  ----------
+1           Omaha     
+sqlite> DELETE FROM locations WHERE id = 1;
+sqlite> SELECT * FROM locations;
+sqlite> .quit
+➜  2015-02-05-warehouse  mate location.rb 
+➜  2015-02-05-warehouse  ls
+category.rb            location.rb            warehouse_mgr          warehouse_mgr_setup.rb
+driver.rb              product.rb             warehouse_mgr.db
+➜  2015-02-05-warehouse  ls
+category.rb            location.rb            warehouse_mgr          warehouse_mgr_setup.rb
+driver.rb              product.rb             warehouse_mgr.db
+➜  2015-02-05-warehouse  mate location.rb 
+➜  2015-02-05-warehouse  ruby location.rb 
+location.rb:23: syntax error, unexpected keyword_end, expecting end-of-input
+➜  2015-02-05-warehouse  ruby location.rb
+
+From: /Users/alexandrajmh/Code/2015-02-05-warehouse/location.rb @ line 24 :
+
+    19:        @id = DATABASE.last_insert_row_id
+    20:   end
+    21:   
+    22: end
+    23: 
+ => 24: binding.pry
+    25: 
+    26: 
+
+[1] pry(main)> omaha = Location.new("Omaha - HQ")
+TypeError: no implicit conversion of Symbol into Integer
+from location.rb:11:in `[]'
+[2] pry(main)> omaha = Location.new(city: "Omaha - HQ")
+=> #<Location:0x007ffe2b02f630 @city="Omaha - HQ", @id=1>
+[3] pry(main)> exit
+➜  2015-02-05-warehouse  sqlite warehouse_mgr
+zsh: command not found: sqlite
+➜  2015-02-05-warehouse  sqlite3 warehouse_mgr.db 
+-- Loading resources from /Users/alexandrajmh/.sqliterc
+
+SQLite version 3.8.5 2014-08-15 22:37:57
+Enter ".help" for usage hints.
+sqlite> SELECT * from locations
+   ...> ;
+location_id  city      
+-----------  ----------
+1            Omaha - HQ
+sqlite> .quit
+➜  2015-02-05-warehouse  ruby location.rb 
+
+From: /Users/alexandrajmh/Code/2015-02-05-warehouse/location.rb @ line 24 :
+
+    19:        @id = DATABASE.last_insert_row_id
+    20:   end
+    21:   
+    22: end
+    23: 
+ => 24: binding.pry
+    25: 
+    26: 
+
+[1] pry(main)> austin = Location.new(city: "Austin")
+=> #<Location:0x007fd10b9268f8 @city="Austin", @id=2>
+[2] pry(main)> kc = Location.new(city: "Kansas City")
+=> #<Location:0x007fd10a960b08 @city="Kansas City", @id=3>
+[3] pry(main)> exit
+➜  2015-02-05-warehouse  sqlite3 warehouse_mgr.db
+-- Loading resources from /Users/alexandrajmh/.sqliterc
+
+SQLite version 3.8.5 2014-08-15 22:37:57
+Enter ".help" for usage hints.
+sqlite> SELECT * from locations;
+location_id  city      
+-----------  ----------
+1            Omaha - HQ
+2            Austin    
+3            Kansas Cit
+sqlite> .quit
+➜  2015-02-05-warehouse  mate category.rb 
+➜  2015-02-05-warehouse  ruby category.rb 
+
+From: /Users/alexandrajmh/Code/2015-02-05-warehouse/category.rb @ line 24 :
+
+    19:        @id = DATABASE.last_insert_row_id
+    20:   end
+    21:   
+    22: end
+    23: 
+ => 24: binding.pry
+
+[1] pry(main)> misc = Category.new(name: "Misc")
+=> #<Category:0x007fc39b114480 @id=1, @name="Misc">
+[2] pry(main)> books = Category.new(name: "Books")
+=> #<Category:0x007fc39b304588 @id=2, @name="Books">
+[3] pry(main)> movies = Category.new(name: "Movies")
+=> #<Category:0x007fc39b325418 @id=3, @name="Movies">
+[4] pry(main)> exit
+➜  2015-02-05-warehouse  sqlite3 warehouse_mgr.db
+-- Loading resources from /Users/alexandrajmh/.sqliterc
+
+SQLite version 3.8.5 2014-08-15 22:37:57
+Enter ".help" for usage hints.
+sqlite> SELECT * from categories;
+id          name      
+----------  ----------
+1           Misc      
+2           Books     
+3           Movies    
+sqlite> .quit
+➜  2015-02-05-warehouse  mate driver
+➜  2015-02-05-warehouse  mate driver.rb 
+➜  2015-02-05-warehouse  mate product.rb 
+➜  2015-02-05-warehouse  sqlite3 warehouse_mgr.db
+-- Loading resources from /Users/alexandrajmh/.sqliterc
+
+SQLite version 3.8.5 2014-08-15 22:37:57
+Enter ".help" for usage hints.
+sqlite> SELECT * from products;
+sqlite> INSERT INTO products (name, quantity) VALUES ("Harry Potter 1", 3);
+Error: table products has no column named name
+sqlite> INSERT INTO products (location_id, quantity) VALUES (1 , 3);
+sqlite> SELECT * from products;
+id          serial_number  quantity    description  cost        location_id  category_id
+----------  -------------  ----------  -----------  ----------  -----------  -----------
+1                          3                                    1                       
+sqlite> DROP TABLE products;
+sqlite> CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY,
+   ...>           serial_number INTEGER, name TEXT, description TEXT, quantity INTEGER, cost
+   ...>           INTEGER, location_id INTEGER, category_id INTEGER);
+sqlite> INSERT INTO prodcuts (name, quantity) VALUES ("Harry Potter 1", 3)
+   ...> ;
+Error: no such table: prodcuts
+sqlite> INSERT INTO products (name, quantity) VALUES ("Harry Potter 1", 3);
+sqlite> SELECT * from products;
+id          serial_number  name            description  quantity    cost        location_id  category_id
+----------  -------------  --------------  -----------  ----------  ----------  -----------  -----------
+1                          Harry Potter 1               3                                               
+sqlite> .quit
+➜  2015-02-05-warehouse  ruby product.rb 
+product.rb:9: syntax error, unexpected ':', expecting keyword_end
+  attr_accessor :location_id :cost :quantity
+                              ^
+➜  2015-02-05-warehouse  ruby product.rb
+
+From: /Users/alexandrajmh/Code/2015-02-05-warehouse/product.rb @ line 31 :
+
+    26:        @id = DATABASE.last_insert_row_id
+    27:   end
+    28:   
+    29: end
+    30: 
+ => 31: binding.pry
+
+[1] pry(main)> intro_to_ruby = Product.new(name: "Introduction to Ruby", cost: 15, quantity: 10, category_id: 2)
+=> #<Product:0x007fac430f3bc8
+ @category_id=2,
+ @cost=15,
+ @description=nil,
+ @id=4,
+ @location_id=nil,
+ @name="Introduction to Ruby",
+ @quantity=10,
+ @serial_no=nil>
+[2] pry(main)> exit
+➜  2015-02-05-warehouse  sqlite3 warehouse_mgr.db
+-- Loading resources from /Users/alexandrajmh/.sqliterc
+
+SQLite version 3.8.5 2014-08-15 22:37:57
+Enter ".help" for usage hints.
+sqlite> SELECT * from products;
+id          serial_number  name            description  quantity    cost        location_id  category_id
+----------  -------------  --------------  -----------  ----------  ----------  -----------  -----------
+1                          Harry Potter 1               3                                               
+sqlite> SELECT * from gategories;
+Error: no such table: gategories
+sqlite> SELECT * from categories;
+id          name      
+----------  ----------
+1           Misc      
+2           Books     
+3           Movies    
+4           Introducti
+sqlite> DELETE FROM categories WHERE id = 4;
+sqlite> SELECT * from categories;
+id          name      
+----------  ----------
+1           Misc      
+2           Books     
+3           Movies    
+sqlite> .quit
+➜  2015-02-05-warehouse  ruby product.rb 
+product.rb:28: syntax error, unexpected tSTRING_DEND, expecting '='
+                      @cost, @location_id, @category_id}')")
+                                                        ^
+product.rb:28: unterminated string meets end of file
+➜  2015-02-05-warehouse  ruby product.rb
+
+From: /Users/alexandrajmh/Code/2015-02-05-warehouse/product.rb @ line 34 :
+
+    29:        @id = DATABASE.last_insert_row_id
+    30:   end
+    31:   
+    32: end
+    33: 
+ => 34: binding.pry
+
+[1] pry(main)> intro_ruby = Product.new(name: "Introduction to Ruby", quantity: 10, cost: 15, location_id: 2)
+SQLite3::SQLException: near ",": syntax error
+from /Users/alexandrajmh/.rbenv/versions/2.2.0/lib/ruby/gems/2.2.0/gems/sqlite3-1.3.10/lib/sqlite3/database.rb:91:in `initialize'
+[2] pry(main)> intro_ruby = Product.new(name: "Introduction to Ruby" quantity: 10 cost: 15 location_id: 2)
+SyntaxError: unexpected tIDENTIFIER, expecting ')'
+..."Introduction to Ruby" quantity: 10 cost: 15 location_id: 2)
+...                               ^
+[2] pry(main)> exit
+➜  2015-02-05-warehouse  ruby product.rb
+
+From: /Users/alexandrajmh/Code/2015-02-05-warehouse/product.rb @ line 34 :
+
+    29:        @id = DATABASE.last_insert_row_id
+    30:   end
+    31:   
+    32: end
+    33: 
+ => 34: binding.pry
+
+[1] pry(main)> intro_ruby = Product.new(name: "Introduction to Ruby", quantity: 10, cost: 15, location_id: 2)
+=> #<Product:0x007f7f7b80aaf0
+ @category_id=0,
+ @cost=15,
+ @description=nil,
+ @id=2,
+ @location_id=2,
+ @name="Introduction to Ruby",
+ @quantity=10,
+ @serial_number=0>
+[2] pry(main)> exit
+➜  2015-02-05-warehouse  sqlite3 warehouse_mgr.db
+-- Loading resources from /Users/alexandrajmh/.sqliterc
+
+SQLite version 3.8.5 2014-08-15 22:37:57
+Enter ".help" for usage hints.
+sqlite> SELECT * from categories;
+id          name      
+----------  ----------
+1           Misc      
+2           Books     
+3           Movies    
+sqlite> SELECT * from products;
+id          serial_number  name            description  quantity    cost        location_id  category_id
+----------  -------------  --------------  -----------  ----------  ----------  -----------  -----------
+1                          Harry Potter 1               3                                               
+2           0              Introduction t               10          15          2            0          
+sqlite> .quit
+➜  2015-02-05-warehouse  
