@@ -1,7 +1,11 @@
 require 'pry'
 require 'sqlite3'
 
+
+
 DATABASE = SQLite3::Database.new("warehouse_mgr.db")
+
+DATABASE.results_as_hash = true
 
 # Class: Product
 #
@@ -42,12 +46,12 @@ class Product
   # ???
   
   def initialize(options)
-    @serial_number = options["serial_number"].to_i
+    @serial_number = options["serial_number"]
     @description = options["description"]
-    @quantity = options["quantity"].to_i
-    @cost = options["cost"].to_i
-    @location_id = options["location_id"].to_i
-    @category_id = options["category_id"].to_i
+    @quantity = options["quantity"]
+    @cost = options["cost"]
+    @location_id = options["location_id"]
+    @category_id = options["category_id"]
     # do we need @id?
   end
 
@@ -96,10 +100,15 @@ class Product
     @id = DATABASE.last_insert_row_id
   end
   
+  def self.delete(record_id)
+    DATABASE.execute("DELETE FROM products WHERE id = #{record_id}")
+  end
+  
   
   def self.fetch_products_from_location(location_id)
     results = DATABASE.execute("SELECT * FROM products WHERE
-                                location_id = '#{location_id}'")
+                                location_id = #{location_id}")
+    # => Array of Hashes
     
     results_as_objects = []
     
@@ -108,12 +117,13 @@ class Product
     end
     
     results_as_objects
+    # => Array of new objects
   end
   
                   ### REFACTOR THIS INTO THE ABOVE METHOD ###
                   def self.fetch_products_from_category(category_id)
                     results = DATABASE.execute("SELECT * FROM products WHERE
-                                                category_id = '#{category_id}'")
+                                                category_id = #{category_id}")
                     results_as_objects = []
     
                     results.each do |r|
@@ -122,7 +132,25 @@ class Product
     
                     results_as_objects
                   end
-  
+                  
+                  def self.fetch_products_by_description(description)
+                    results = DATABASE.execute("SELECT * FROM products WHERE
+                                                description = '#{description}'")
+                    results_as_objects = []
+    
+                    results.each do |r|
+                      results_as_objects << self.new(r)
+                    end
+    
+                    results_as_objects
+                  end
+                  
+  def self.find(record_id)
+    results = DATABASE.execute("SELECT * FROM products WHERE id = #{record_id}")
+    record_details = results[0]
+    self.new(record_details)
+  end
+
   def self.all
     DATABASE.execute("SELECT * FROM products")
   end
