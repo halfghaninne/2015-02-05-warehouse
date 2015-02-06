@@ -58,3 +58,4 @@ class Category
   
 end
 
+binding.pry

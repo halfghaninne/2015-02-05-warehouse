@@ -21,7 +21,7 @@ class Location
   
   attr_reader :id
   
-  # Public or Private?: .initialize
+  # Private (triggered by .new): .initialize
   # Gathers arguments (field values) in an options Hash; automatically inserts them into the locations table via private method .insert
   #
   # Parameters:

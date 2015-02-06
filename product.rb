@@ -9,8 +9,7 @@ DATABASE = SQLite3::Database.new("warehouse_mgr.db")
 # 
 # Attributes:
 # + @id              - Integer: Primary key ##user shouldn't overwrite##
-# + @serial_number   - String: 
-# + @name            - String:
+# + @serial_number   - Integer 
 # + @description     - String:
 # + @quantity        - Integer:
 # + @cost            - Integer: ##CONSIDER CHANGING TO FLOAT/OTHER VALUE##
@@ -26,7 +25,9 @@ DATABASE = SQLite3::Database.new("warehouse_mgr.db")
 class Product
   
   attr_reader :id
-  attr_accessor :location_id, :cost, :quantity
+  
+  attr_accessor :location_id, :cost, :quantity, :serial_number, :description, 
+                :category_id
   
   # Public or Private?: .initialize
   # Gathers arguments (field values) in an options Hash; automatically inserts them into the products table via private method .insert
@@ -41,19 +42,41 @@ class Product
   # ???
   
   def initialize(options)
-    @serial_number = options[:serial_number].to_i
-    @name = options[:name]
-    @description = options[:description]
-    @quantity = options[:quantity].to_i
-    @cost = options[:cost].to_i
-    @location_id = options[:location_id].to_i
-    @category_id = options[:category_id].to_i
-    insert
+    @serial_number = options["serial_number"].to_i
+    @description = options["description"]
+    @quantity = options["quantity"].to_i
+    @cost = options["cost"].to_i
+    @location_id = options["location_id"].to_i
+    @category_id = options["category_id"].to_i
+    # do we need @id?
+  end
+
+  ## MOVE TO MODULE ##
+  def save
+    attributes = []
+    
+    instance_variables.each do |i|
+      attributes << i.to_s.delete("@")
+    end
+    
+    query_components_array = []
+    
+    attributes.each do |a|
+      value = self.send(a)
+      
+      if value.is_a?(Integer)
+        query_components_array << "#{a} = #{value}"
+      else
+        query_components_array << "#{a} = '#{value}'"
+      end
+    end
+       
+    query_string = query_components_array.join(", ")
+    
+    DATABASE.execute("UPDATE products SET #{query_string} WHERE id = #{id}")
   end
   
-  private
-  
-  # Private: .insert
+  # Public: .insert
   # Syntax to enter the Ruby object's arguments as a records' field values via sqlite3
   #
   # Parameters:
@@ -65,13 +88,45 @@ class Product
   # ???
   
   def insert
-    DATABASE.execute("INSERT INTO products (serial_number, name, description, 
+    DATABASE.execute("INSERT INTO products (serial_number, description, 
                       quantity, cost, location_id, category_id) 
-                      VALUES (#{@serial_number}, '#{@name}', '#{@description}', 
+                      VALUES (#{@serial_number}, '#{@description}', 
                       #{@quantity}, #{@cost}, #{@location_id}, #{@category_id})")
     # At present, 0's are entered in for integer values that are not entered, need to change this to our default settings. Blank field left for empty text values.
     @id = DATABASE.last_insert_row_id
   end
   
+  
+  def self.fetch_products_from_location(location_id)
+    results = DATABASE.execute("SELECT * FROM products WHERE
+                                location_id = '#{location_id}'")
+    
+    results_as_objects = []
+    
+    results.each do |r|
+      results_as_objects << self.new(r)
+    end
+    
+    results_as_objects
+  end
+  
+                  ### REFACTOR THIS INTO THE ABOVE METHOD ###
+                  def self.fetch_products_from_category(category_id)
+                    results = DATABASE.execute("SELECT * FROM products WHERE
+                                                category_id = '#{category_id}'")
+                    results_as_objects = []
+    
+                    results.each do |r|
+                      results_as_objects << self.new(r)
+                    end
+    
+                    results_as_objects
+                  end
+  
+  def self.all
+    DATABASE.execute("SELECT * FROM products")
+  end
+  
 end
 
+binding.pry
