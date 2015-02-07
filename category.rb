@@ -1,7 +1,7 @@
 require 'pry'
 require 'sqlite3'
 
-DATABASE = SQLite3::Database.new("warehouse_mgr.db")
+require_relative "warehouse_methods.rb"
 
 # Class: Category
 #
