@@ -35,12 +35,9 @@ class Location
   
   def initialize(options)
     @city = options[:city]
-    insert
   end
   
-  private
-  
-  # Private: .insert
+  # Public: .insert
   # Syntax to enter the Ruby object's arguments as a records' field values via sqlite3
   #
   # Parameters:
@@ -54,6 +51,22 @@ class Location
   def insert
     DATABASE.execute("INSERT INTO locations (city) VALUES ('#{@city}')")
        @id = DATABASE.last_insert_row_id
+  end
+  
+  # Public: .all
+  # Get all the records in the locations table.
+  #
+  # Parameters:
+  # None
+  #
+  # Returns: 
+  # Array: Records from the locations table displaying all fields.
+  #
+  # State Changes:
+  # None
+  
+  def self.all
+    DATABASE.execute("SELECT * FROM locations")
   end
   
 end

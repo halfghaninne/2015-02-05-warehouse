@@ -35,12 +35,9 @@ class Category
   
   def initialize(options)
     @name = options[:name]
-    insert
   end
   
-  private
-  
-  # Private: .insert
+  # Public: .insert
   # Syntax to enter the Ruby object's arguments as a records' field values via sqlite3
   #
   # Parameters:
@@ -56,6 +53,20 @@ class Category
        @id = DATABASE.last_insert_row_id
   end
   
+  # Public: .all
+  # Get all the records in the categories table.
+  #
+  # Parameters:
+  # None
+  #
+  # Returns: 
+  # Array: Records from the categories table displaying all fields.
+  #
+  # State Changes:
+  # None
+  
+  def self.all
+    DATABASE.execute("SELECT * FROM categories")
+  end
+  
 end
-
-binding.pry

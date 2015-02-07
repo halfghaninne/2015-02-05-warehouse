@@ -52,7 +52,6 @@ class Product
     @cost = options["cost"]
     @location_id = options["location_id"]
     @category_id = options["category_id"]
-    # do we need @id?
   end
 
   ## MOVE TO MODULE ##
@@ -105,45 +104,29 @@ class Product
   end
   
   
-  def self.fetch_products_from_location(location_id)
-    results = DATABASE.execute("SELECT * FROM products WHERE
-                                location_id = #{location_id}")
-    # => Array of Hashes
+  def self.fetch_by(options) #ex: Product.fetch_by("location_id" => 2)
+    v = []
+    k = []
+    options.each_key {|key| k << "#{key}"}
+    options.each_value {|value| v << "#{value}"}
+    
+    field = k[0].to_s
+    search_value = v[0].to_i
+    
+    search_query = "SELECT * FROM products WHERE #{field} = #{search_value}"
+        
+    results = DATABASE.execute("#{search_query}")
     
     results_as_objects = []
-    
+
     results.each do |r|
       results_as_objects << self.new(r)
     end
-    
+
     results_as_objects
-    # => Array of new objects
+        
   end
-  
-                  ### REFACTOR THIS INTO THE ABOVE METHOD ###
-                  def self.fetch_products_from_category(category_id)
-                    results = DATABASE.execute("SELECT * FROM products WHERE
-                                                category_id = #{category_id}")
-                    results_as_objects = []
-    
-                    results.each do |r|
-                      results_as_objects << self.new(r)
-                    end
-    
-                    results_as_objects
-                  end
-                  
-                  def self.fetch_products_by_description(description)
-                    results = DATABASE.execute("SELECT * FROM products WHERE
-                                                description = '#{description}'")
-                    results_as_objects = []
-    
-                    results.each do |r|
-                      results_as_objects << self.new(r)
-                    end
-    
-                    results_as_objects
-                  end
+
                   
   def self.find(record_id)
     results = DATABASE.execute("SELECT * FROM products WHERE id = #{record_id}")
