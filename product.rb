@@ -65,7 +65,7 @@ class Product
   # State Changes:
   # None
   
-  def fetch_by(options) #ex: Product.fetch_by("location_id" => 2)
+  def self.fetch_by(options) #ex: Product.fetch_by("location_id" => 2)
     v = []
     k = []
     options.each_key {|key| k << "#{key}"}
@@ -83,20 +83,25 @@ class Product
     results.each do |r|
       results_as_objects << self.new(r)
     end
+    
+    # n = results_as_objects.length
+    
+    x = 0
+    
+    until x == results_as_objects.length
+      puts "Description: '#{results_as_objects[x].description}' Quantity: #{results_as_objects[x].quantity}"
+      x+=1
+    end
 
-    results_as_objects
-    
   end
   
+
   
+  # def edit(options)
+  #   fetch_by(options)
+  #
+  #
+  # end
   
-  
-  def edit(options)
-    fetch_by(options)
-    
-    
-  end
-  
-  
-       
+
 end

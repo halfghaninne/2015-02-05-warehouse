@@ -22,12 +22,15 @@ until valid_answers.include?(selection)
   puts "1 - Pull up product records for a location \n 2 - Pull up product record \n"
   puts "3 - Edit product information \n 4 - Transfer product \n 5 - Delete a product"
   selection = gets.chomp.to_i
+end
   
 if selection == 1 # Pull up all records for a location
   puts "Please enter the location's id:"
   id = gets.chomp.to_i
   
   Product.fetch_by("location_id" => id)
+  
+  
   
 elsif selection == 2 # Pull up a product record
   puts "Please enter the id or name of the product:"
@@ -49,10 +52,4 @@ elsif selection == 5 # Delete a product
   
   Product.delete("locations", id)
 end
-
-end
   
-
-
-
-binding.pry
