@@ -23,7 +23,6 @@ class Category
   
   include WarehouseMethods
 
-  
   # Private: .initialize
   # Gathers arguments (field values) in an options Hash
   #

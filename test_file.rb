@@ -5,6 +5,7 @@ require "sqlite3"
 
 DATABASE = SQLite3::Database.new("warehouse_test.db")
 
+require_relative 'warehouse_mgr_setup.rb'
 require_relative 'driver.rb'
 require_relative 'product.rb'
 require_relative 'location.rb'

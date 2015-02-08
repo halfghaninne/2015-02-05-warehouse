@@ -53,8 +53,8 @@ class Product
   end
 
   # Public: .fetch_by
-  # Returns product records that have a given field value, expressed in a key, value pair within an options Hash.
-  # For example: Product.fetch_by("location_id" => 2) would return all records in the products table with a location_id of 2. They would be returned as objects.
+  # Returns product records that have a given field value, expressed in a (key, value) pair within an options Hash.
+  # For example Product.fetch_by("location_id" => 2) would return all records in the products table with a location_id of 2. They would be returned as objects.
   #
   # Parameters:
   # + options ={"field name" => desired value}

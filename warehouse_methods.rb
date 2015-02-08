@@ -1,4 +1,27 @@
+# Module: WarehouseMethods
+#
+# Toolbox for updating associated tables via Ruby. Methods work for Product, Category, and Location classes.
+#
+# Public Methods:
+# + find
+# + all
+# + delete
+# + save
+# + insert
+
 module WarehouseMethods
+  
+  # Private(ish): self.included
+  # Makes methods within the WarehouseClassMethods module Class methods.
+  #
+  # Parameters:
+  # + base : String
+  #
+  # Returns: 
+  # String
+  #
+  # State Changes:
+  # None.
    
   def self.included(base)
     base.extend WarehouseClassMethods
@@ -8,6 +31,19 @@ module WarehouseMethods
 
     module WarehouseClassMethods
     
+      # Public: .find
+      # Returns a record from a given table, by searching for the record's unique primary key.
+      #
+      # Parameters:
+      # + table_name  : String
+      # + record_id   : Integer
+      #
+      # Returns: 
+      # Object: The record's details, expressed as an Object.
+      #
+      # State Changes:
+      # None.
+      
       def find(table_name, record_id)
         results = DATABASE.execute("SELECT * FROM #{table_name} WHERE id = #{record_id}")
         record_details = results[0]
@@ -18,13 +54,13 @@ module WarehouseMethods
       # Returns all records in a given table.
       #
       # Parameters:
-      # + table_name
+      # + table_name  : String
       #
       # Returns: 
       # Array: Array of all records in a given table, each expressed as a Hash.
       #
       # State Changes:
-      # None
+      # None.
       
       def all(table_name)
         DATABASE.execute("SELECT * FROM #{table_name}")
@@ -50,6 +86,18 @@ module WarehouseMethods
     end
 
 ### INSTANCE METHODS ###
+  
+  # Public: .save
+  # Syncs an object's attributes with the database. 
+  #
+  # Parameters:
+  # + table_name
+  #
+  # Returns: 
+  # None.
+  #
+  # State Changes:
+  # Alters associated record in table. 
     
   def save(table_name)
     attributes = []
