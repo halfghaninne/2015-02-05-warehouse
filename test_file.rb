@@ -23,7 +23,7 @@ class WarehouseTest < Minitest::Test
 
   def test_location_creation
     location = Location.new({"city" => "Omaha"})
-    location.insert   
+    location.insert("locations")   
     results = DATABASE.execute("SELECT city FROM locations WHERE id = #{location.id}")
     
     added_location = results[0]
@@ -38,9 +38,9 @@ class WarehouseTest < Minitest::Test
     l1 = Location.new({"city" => "Omaha"})
     l2 = Location.new({"city" => "Lincoln"})
     l3 = Location.new({"city" => "Kearney"})
-    l1.insert
-    l2.insert
-    l3.insert
+    l1.insert("locations")
+    l2.insert("locations")
+    l3.insert("locations")
     assert_equal(3, Location.all.length)
   end
     
@@ -51,14 +51,14 @@ class WarehouseTest < Minitest::Test
     
     l1 = Category.new({"name" => "Movie"})
     l2 = Category.new({"name" => "Book"})
-    l1.insert
-    l2.insert
+    l1.insert("categories")
+    l2.insert("categories")
     assert_equal(2, Category.all.length)
   end
   
   def test_category_creation
     category = Category.new({"name" => "Movie"})
-    category.insert   
+    category.insert("categories")   
     results = DATABASE.execute("SELECT name FROM categories WHERE id = #{category.id}")
     
     added_category = results[0]
@@ -72,7 +72,7 @@ class WarehouseTest < Minitest::Test
   def test_product_creation
     product = Product.new({"serial_number" => 4000, "description" => "Name of Product",
     "quantity" => 30, "cost" => 15, "location_id" => 2, "category_id" => 2})
-    product.insert
+    product.insert("products")
     
     results = DATABASE.execute("SELECT name FROM product WHERE id = #{id}")
     
@@ -88,10 +88,10 @@ class WarehouseTest < Minitest::Test
     p1 = Product.new({"serial_number" => 4000, "description" => "First Product",
     "quantity" => 30, "cost" => 15, "location_id" => 2, "category_id" => 2})
     
-    p2 = Product.new({serial_number} => 45000, "description" => "Second Product",
+    p2 = Product.new({serial_number} => 5000, "description" => "Second Product",
     "quantity" => 30, "cost" => 15, "location_id" => 1, "category_id" => 3})
-    p1.insert
-    p2.insert
+    p1.insert("products")
+    p2.insert("products")
     assert_equal(2, Product.all.length)
   end
   
@@ -105,18 +105,33 @@ class WarehouseTest < Minitest::Test
   #   refute_equal(1, Product.all.length)
   # end
   
-  def test_product_fetching
-    DATABASE.execute("DELETE FROM products")
-    
-    p1 = Product.new({"serial_number" => 4000, "description" => "First Product",
-    "quantity" => 30, "cost" => 15, "location_id" => 2, "category_id" => 2})
-    
-    p2 = Product.new({serial_number} => 45000, "description" => "Second Product",
-    "quantity" => 30, "cost" => 15, "location_id" => 1, "category_id" => 3})
-    p1.insert
-    p2.insert
-    assert_equal(2, Product.all.length)
-  end
+  # def test_product_fetching
+  #   DATABASE.execute("DELETE FROM products")
+  #
+  #   p1 = Product.new({"serial_number" => 4000, "description" => "First Product",
+  #   "quantity" => 30, "cost" => 15, "location_id" => 2, "category_id" => 2})
+  #
+  #   p2 = Product.new({serial_number} => 45000, "description" => "Second Product",
+  #   "quantity" => 30, "cost" => 15, "location_id" => 1, "category_id" => 3})
+  #   p1.insert("products")
+  #   p2.insert("products")
+  #
+  #   Product.fetch_by("location_id" => 2)
+  #
+  #   assert_equal(1, results_as_objects.length)
+  #   # Re-write; don't think that results_as_objects variable has scope here.
+  # end
+  
+  # def test_product_editing
+  #   DATABASE.execute("DELETE FROM products")
+  #
+  #   p1 = Product.new({"serial_number" => 6000, "description" => "Test Product",
+  #   "quantity" => 30, "cost" => 15, "location_id" => 2, "category_id" => 3})
+  #
+  #   p1.insert("products")
+  #
+  #   # How would we go about this? .find / .fetch_by, then .save? How would that work? do the (temporary) objects created in a find or fetch have scope outside that method?
+  # end
   
   
   
