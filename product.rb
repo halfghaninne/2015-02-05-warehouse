@@ -87,5 +87,16 @@ class Product
     results_as_objects
     
   end
+  
+  
+  
+  
+  def edit(options)
+    fetch_by(options)
+    
+    
+  end
+  
+  
        
 end

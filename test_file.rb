@@ -95,6 +95,57 @@ class WarehouseTest < Minitest::Test
     assert_equal(2, Product.all.length)
   end
   
+  def test_find_method
+    location = Location.new({"city" => "Omaha"})
+    category = Category.new({"name" => "Book"})
+    product = Product.new({"serial_number" => 1, "description" => "Hello", 
+                            "quantity" => 5, "cost" => 10, "location_id" => 1,
+                            "category_id" => 3})
+   
+    location.insert("locations")
+    category.insert("categories")
+    product.insert("products")
+    
+    results1 = Product.find("products", 1)
+    results2 = Location.find("locations", 1)
+    results3 = Category.find("categories", 1) 
+    
+    assert_equal(10, results1.cost)
+    assert_equal("Omaha", results2.city)
+    assert_equal("Book", results3.name)                        
+  end
+  
+  def test_delete_method
+    product1 = Product.new({"serial_number" => 1, "description" => "Hello", 
+                            "quantity" => 5, "cost" => 10, "location_id" => 1,
+                            "category_id" => 3})
+                            
+    product2 = Product.new({"serial_number" => 2, "description" => "Goodbye", 
+                            "quantity" => 8, "cost" => 12, "location_id" => 1,
+                            "category_id" => 2})
+                            
+    product1.insert("products")
+    product2.insert("products")
+    
+    Product.delete("products", 1)
+    
+    assert_equal(1, Product.all("products").length)
+  end
+  
+  def test_save_method
+    product = Product.new({"serial_number" => 1, "description" => "Hello", 
+                            "quantity" => 5, "cost" => 10, "location_id" => 1,
+                            "category_id" => 3})
+                            
+    product.insert("products")
+    
+    product.quantity = 10
+    
+    product.save("products")
+    
+    assert_equal(10, product.quantity)
+  end
+  
   # def test_product_without_enough_info
   #   DATABASE.execute("DELETE FROM products")
   #
@@ -105,22 +156,22 @@ class WarehouseTest < Minitest::Test
   #   refute_equal(1, Product.all.length)
   # end
   
-  # def test_product_fetching
-  #   DATABASE.execute("DELETE FROM products")
-  #
-  #   p1 = Product.new({"serial_number" => 4000, "description" => "First Product",
-  #   "quantity" => 30, "cost" => 15, "location_id" => 2, "category_id" => 2})
-  #
-  #   p2 = Product.new({serial_number} => 45000, "description" => "Second Product",
-  #   "quantity" => 30, "cost" => 15, "location_id" => 1, "category_id" => 3})
-  #   p1.insert("products")
-  #   p2.insert("products")
-  #
-  #   Product.fetch_by("location_id" => 2)
-  #
-  #   assert_equal(1, results_as_objects.length)
-  #   # Re-write; don't think that results_as_objects variable has scope here.
-  # end
+  def test_product_fetching
+    DATABASE.execute("DELETE FROM products")
+    
+    p1 = Product.new({"serial_number" => 4000, "description" => "First Product",
+    "quantity" => 30, "cost" => 15, "location_id" => 2, "category_id" => 2})
+
+    p2 = Product.new({serial_number} => 45000, "description" => "Second Product",
+    "quantity" => 30, "cost" => 15, "location_id" => 1, "category_id" => 3})
+    
+    p1.insert("products")
+    p2.insert("products")
+
+
+    assert_equal(1, Product.fetch_by("location_id" => 2).length)
+  end
+  
   
   # def test_product_editing
   #   DATABASE.execute("DELETE FROM products")
