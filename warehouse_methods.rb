@@ -1,56 +1,57 @@
 module WarehouseMethods
-### NEED TO REPLACE TABLE NAMES WITH VARIABLE ###
- 
+   
   def self.included(base)
     base.extend WarehouseClassMethods
   end
   
+### CLASS METHODS ###
+
     module WarehouseClassMethods
-
-
-      def fetch_by(options) #ex: Product.fetch_by("location_id" => 2)
-        v = []
-        k = []
-        options.each_key {|key| k << "#{key}"}
-        options.each_value {|value| v << "#{value}"}
     
-        field = k[0].to_s
-        search_value = v[0].to_i
-    
-        search_query = "SELECT * FROM products WHERE #{field} = #{search_value}"
-        
-        results = DATABASE.execute("#{search_query}")
-    
-        results_as_objects = []
-
-        results.each do |r|
-          results_as_objects << self.new(r)
-        end
-
-        results_as_objects
-        
-      end
-               
-      def find(record_id)
-        results = DATABASE.execute("SELECT * FROM products WHERE id = #{record_id}")
+      def find(table_name, record_id)
+        results = DATABASE.execute("SELECT * FROM #{table_name} WHERE id = #{record_id}")
         record_details = results[0]
         self.new(record_details)
       end
-
-      def all
-        DATABASE.execute("SELECT * FROM products")
+      
+      # Public: .all
+      # Returns all records in a given table.
+      #
+      # Parameters:
+      # + table_name
+      #
+      # Returns: 
+      # Array: Array of all records in a given table, each expressed as a Hash.
+      #
+      # State Changes:
+      # None
+      
+      def all(table_name)
+        DATABASE.execute("SELECT * FROM #{table_name}")
       end
+      
+      # Public: .delete
+      # Deletes a specific record from a given table.
+      #
+      # Parameters:
+      # + table_name
+      # + record_id
+      #
+      # Returns: 
+      # None.
+      #
+      # State Changes:
+      # Alters associated table; deletes Object.
   
-      def delete(record_id)
-        DATABASE.execute("DELETE FROM products WHERE id = #{record_id}")
+      def delete(table_name, record_id)
+        DATABASE.execute("DELETE FROM #{table_name} WHERE id = #{record_id}")
       end
       
     end
 
-
-    ### INSTANCE METHODS ###
+### INSTANCE METHODS ###
     
-  def save
+  def save(table_name)
     attributes = []
   
     instance_variables.each do |i|
@@ -71,7 +72,7 @@ module WarehouseMethods
      
     query_string = query_components_array.join(", ")
   
-    DATABASE.execute("UPDATE products SET #{query_string} WHERE id = #{id}")
+    DATABASE.execute("UPDATE #{table_name} SET #{query_string} WHERE id = #{id}")
   end
 
   # Public: .insert
@@ -85,14 +86,20 @@ module WarehouseMethods
   # State Changed:
   # ???
 
-  def insert
-    DATABASE.execute("INSERT INTO products (serial_number, description, 
+  def insert(table_name)
+    if table_name == "products"
+      DATABASE.execute("INSERT INTO products (serial_number, description, 
                       quantity, cost, location_id, category_id) 
                       VALUES (#{@serial_number}, '#{@description}', 
                       #{@quantity}, #{@cost}, #{@location_id}, #{@category_id})")
     # At present, 0's are entered in for integer values that are not entered, need to change this to our default settings. Blank field left for empty text values.
-    @id = DATABASE.last_insert_row_id
+      @id = DATABASE.last_insert_row_id
+    elsif table_name == "locations"
+      DATABASE.execute("INSERT INTO locations (city) VALUES ('#{@city}')")
+      @id = DATABASE.last_insert_row_id
+    elsif table_name == "categories"
+      DATABASE.execute("INSERT INTO categories (name) VALUES ('#{@name}')")
+      @id = DATABASE.last_insert_row_id            
+    end
   end
-  end
-  
 end

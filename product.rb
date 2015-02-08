@@ -17,10 +17,10 @@ require_relative "warehouse_methods.rb"
 # + @category_id     - Integer: Foreign key ##RESTRICT VALUES##
 #
 # Public Methods:
-# ???
+# None.
 #
 # Private Methods:
-# + insert
+# + initialize
 
 class Product
   
@@ -28,15 +28,17 @@ class Product
   
   attr_accessor :location_id, :cost, :quantity, :serial_number, :description, 
                 :category_id
+                
+  include WarehouseMethods
   
-  # Public or Private?: .initialize
-  # Gathers arguments (field values) in an options Hash; automatically inserts them into the products table via private method .insert
+  # Private: .initialize
+  # Gathers arguments (field values) in an options Hash
   #
   # Parameters:
-  # + options = {serial_number: Integer, name: String, description: String,     quantity: Integer, cost: Integer, location_id: Integer, category_id: Integer} ##Should we include id? User should never input##
+  # + options = {"serial_number" => Integer, "name" => String, "descriptio" => String, "quantity" => Integer, "cost" => Integer, "location_id" => Integer, "category_id" => Integer}
   #
   # Returns: 
-  # ???
+  # Attribute values.
   # 
   # State Changed:
   # ???
@@ -50,7 +52,40 @@ class Product
     @category_id = options["category_id"]
   end
 
+  # Public: .fetch_by
+  # Returns product records that have a given field value, expressed in a key, value pair within an options Hash.
+  # For example: Product.fetch_by("location_id" => 2) would return all records in the products table with a location_id of 2. They would be returned as objects.
+  #
+  # Parameters:
+  # + options ={"field name" => desired value}
+  #
+  # Returns: 
+  # Objects: Records from the products table, expressed as Ruby Objects.
+  #
+  # State Changes:
+  # None
   
-end
+  def fetch_by(options) #ex: Product.fetch_by("location_id" => 2)
+    v = []
+    k = []
+    options.each_key {|key| k << "#{key}"}
+    options.each_value {|value| v << "#{value}"}
 
-binding.pry
+    field = k[0].to_s
+    search_value = v[0].to_i
+
+    search_query = "SELECT * FROM products WHERE #{field} = #{search_value}"
+    
+    results = DATABASE.execute("#{search_query}")
+
+    results_as_objects = []
+
+    results.each do |r|
+      results_as_objects << self.new(r)
+    end
+
+    results_as_objects
+    
+  end
+       
+end
