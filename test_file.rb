@@ -6,7 +6,6 @@ require "sqlite3"
 DATABASE = SQLite3::Database.new("warehouse_test.db")
 
 require_relative 'warehouse_mgr_setup.rb'
-require_relative 'driver.rb'
 require_relative 'product.rb'
 require_relative 'location.rb'
 require_relative 'category.rb'
@@ -18,7 +17,10 @@ class WarehouseTest < Minitest::Test
     DATABASE.execute("DELETE FROM locations")
     DATABASE.execute("DELETE FROM categories")
   end
+  # Maybe we should move this up out of the class?
   
+### LOCATION TESTS ###
+
   def test_location_creation
     location = Location.new({"city" => "Omaha"})
     location.insert   
@@ -42,6 +44,8 @@ class WarehouseTest < Minitest::Test
     assert_equal(3, Location.all.length)
   end
     
+### CATEGORY TESTS ###
+
   def test_list_all_categories
     DATABASE.execute("DELETE FROM categories")
     
@@ -62,4 +66,59 @@ class WarehouseTest < Minitest::Test
     assert_equal(1, results.length)
     assert_equal("Movie", added_category["name"])
   end
+  
+### PRODUCT TESTS ###
+  
+  def test_product_creation
+    product = Product.new({"serial_number" => 4000, "description" => "Name of Product",
+    "quantity" => 30, "cost" => 15, "location_id" => 2, "category_id" => 2})
+    product.insert
+    
+    results = DATABASE.execute("SELECT name FROM product WHERE id = #{id}")
+    
+    added_product = results[0]
+    
+    assert_equal(1, results.length)
+    assert_equal("Name of Product", added_category["name"])
+  end
+  
+  def test_list_all_products
+    DATABASE.execute("DELETE FROM products")
+    
+    p1 = Product.new({"serial_number" => 4000, "description" => "First Product",
+    "quantity" => 30, "cost" => 15, "location_id" => 2, "category_id" => 2})
+    
+    p2 = Product.new({serial_number} => 45000, "description" => "Second Product",
+    "quantity" => 30, "cost" => 15, "location_id" => 1, "category_id" => 3})
+    p1.insert
+    p2.insert
+    assert_equal(2, Product.all.length)
+  end
+  
+  # def test_product_without_enough_info
+  #   DATABASE.execute("DELETE FROM products")
+  #
+  #   p1 = Product.new({"serial_number" => 4000, "description" => "First Product",
+  #   "cost" => 15, "location_id" => 2, "category_id" => 2})
+  #
+  #   p1.insert
+  #   refute_equal(1, Product.all.length)
+  # end
+  
+  def test_product_fetching
+    DATABASE.execute("DELETE FROM products")
+    
+    p1 = Product.new({"serial_number" => 4000, "description" => "First Product",
+    "quantity" => 30, "cost" => 15, "location_id" => 2, "category_id" => 2})
+    
+    p2 = Product.new({serial_number} => 45000, "description" => "Second Product",
+    "quantity" => 30, "cost" => 15, "location_id" => 1, "category_id" => 3})
+    p1.insert
+    p2.insert
+    assert_equal(2, Product.all.length)
+  end
+  
+  
+  
+
 end
